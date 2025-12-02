@@ -34,8 +34,14 @@ class TensorDictDataset(TensorDict):
         """Get the number of samples in the dataset."""
         return len(next(iter(self._dict.values())))
 
-    def __getitem__(self, index: int) -> TensorDict:
-        """Get a single sample as a TensorDict."""
+    def __getitem__(self, index):
+        """Get a single sample by index, or a tensor by string key."""
+        # Delegate string keys to parent TensorDict behavior
+        if isinstance(index, str):
+            return self._dict[index]
+        if isinstance(index, (list, tuple)) and index and isinstance(index[0], str):
+            return TensorDict(**{k: self._dict[k] for k in index})
+        # Integer index: return a single sample as TensorDict
         return TensorDict(**{k: v[index] for k, v in self._dict.items()})
 
     def collate_fn(self, batch: List[TensorDict]) -> TensorDict:
