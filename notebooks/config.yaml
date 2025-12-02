@@ -1,0 +1,13 @@
+# Configuration for CHG notebooks
+# Customize these paths for your environment
+
+directories:
+  # Repository root (for source code access if needed)
+  repo: .
+
+  # HuggingFace cache directory (optional, uses default if not set)
+  # Set to your preferred cache location, or leave as default
+  huggingface: ~/.cache/huggingface
+
+  # Output directory for datasets and trained masks
+  save: ./output
