@@ -10,4 +10,5 @@ directories:
   huggingface: ~/.cache/huggingface
 
   # Output directory for datasets and trained masks
+  # Paths are resolved relative to this config file's location
   save: ./output
