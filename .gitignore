@@ -93,5 +93,5 @@ Thumbs.db
 *.pth
 *.parquet
 saved_masks/
-datasets/
+/datasets/
 huggingface_cache/
