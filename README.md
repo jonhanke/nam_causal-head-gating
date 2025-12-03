@@ -152,28 +152,38 @@ print(taxonomy)
 
 ```text
 nam_causal-head-gating/
-├─ pyproject.toml                     # package configuration
-├─ uv.lock                            # uv lockfile (reproducible installs)
-├─ environment.yml                    # conda environment
-├─ README.md
-├─ LICENSE
-├─ .gitignore
-├─ Makefile                           # convenience commands
-├─ notebooks/
-│  ├─ chg_example.ipynb               # CHG training example
-│  └─ datasets/
-│     ├─ aba_abb.ipynb                # ABA/ABB dataset preparation
-│     └─ math.ipynb                   # Math dataset preparation
-└─ src/
-   └─ causal_head_gating/
-      ├─ __init__.py
-      ├─ chg.py                       # Core CHG class
-      ├─ chg_trainer.py               # Training pipeline
-      ├─ analyzer.py                  # High-level CHGAnalyzer API
-      ├─ results.py                   # CHGResults container
-      ├─ adapters/                    # Model architecture adapters
-      ├─ data/                        # Dataset utilities
-      └─ utils/                       # Helper functions
+├── pyproject.toml                    # Package configuration
+├── uv.lock                           # Reproducible installs (uv)
+├── environment.yml                   # Conda environment
+├── Makefile                          # Convenience commands
+├── README.md
+├── LICENSE
+├── notebooks/
+│   ├── config.yaml                   # Local paths configuration
+│   ├── chg_example.ipynb             # CHG training example
+│   └── datasets/
+│       ├── aba_abb.ipynb             # ABA/ABB dataset preparation
+│       └── math.ipynb                # Math dataset preparation
+├── src/
+│   └── causal_head_gating/
+│       ├── __init__.py               # Public API exports
+│       ├── api.py                    # High-level CHGAnalyzer API
+│       ├── core/
+│       │   ├── chg.py                # Core CHG class (hook-based gating)
+│       │   └── trainer.py            # Three-stage training pipeline
+│       ├── data/
+│       │   ├── datasets.py           # MaskedSequenceDataset, TensorDict
+│       │   ├── formatters.py         # Few-shot prompt formatting
+│       │   └── tokenization.py       # PromptTokenizer utilities
+│       ├── models/
+│       │   └── adapters.py           # Model architecture adapters
+│       ├── analysis/
+│       │   └── masks.py              # Mask analysis utilities
+│       └── utils/
+│           ├── helpers.py            # to_long_df and other helpers
+│           └── tensor_dict.py        # TensorDict implementation
+└── tests/
+    └── test_imports.py               # Import tests
 ```
 
 **Note:** Dataset files (e.g., `aba_abb.tsv`) are hosted on [HuggingFace Hub](https://huggingface.co/datasets/jonhanke-nam/nam-causal-head-gating) and downloaded automatically on first use.
