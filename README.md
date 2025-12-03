@@ -17,6 +17,7 @@
 - [Project Structure](#project-structure)
 - [Core Concepts](#core-concepts)
 - [Usage Examples](#usage-examples)
+- [HPC Deployment](#hpc-deployment)
 - [Supported Models](#supported-models)
 - [API Reference](#api-reference)
 - [Citation](#citation)
@@ -164,6 +165,11 @@ nam_causal-head-gating/
 │   └── datasets/
 │       ├── aba_abb.ipynb             # ABA/ABB dataset preparation
 │       └── math.ipynb                # Math dataset preparation
+├── slurm/
+│   ├── job_example.slurm             # Slurm job template
+│   ├── config_example.yaml           # Cluster config template
+│   ├── run_chg_example.py            # Training script for HPC
+│   └── setup_env.sh                  # Environment setup
 ├── src/
 │   └── causal_head_gating/
 │       ├── __init__.py               # Public API exports
@@ -307,6 +313,37 @@ trainer = CHGTrainer(
 for mask, metrics in trainer.fit(num_updates=500, num_reg_updates=500):
     print(f"Stage: {metrics['regularization']}, NLL: {metrics['nll']:.3f}")
 ```
+
+
+## HPC Deployment
+
+For running CHG on Slurm-managed HPC clusters, we provide ready-to-use job scripts in the `slurm/` directory.
+
+### Quick Start
+
+```bash
+cd slurm
+
+# 1. Configure for your cluster
+cp job_example.slurm job.slurm
+cp config_example.yaml config.yaml
+# Edit job.slurm: set --partition and --account for your cluster
+# Edit config.yaml: set huggingface cache path
+
+# 2. Download model on login node (compute nodes often lack internet)
+huggingface-cli download meta-llama/Llama-3.2-1B
+
+# 3. Submit job
+sbatch job.slurm
+```
+
+### Features
+
+- **Offline-ready**: Handles clusters where compute nodes have no internet access
+- **Configurable**: Easy customization of model, dataset, and training parameters
+- **GPU-optimized**: Mixed precision training, tested on A100/H100/H200
+
+See [`slurm/README.md`](slurm/README.md) for detailed setup instructions, troubleshooting, and cluster-specific configuration.
 
 
 ## Supported Models

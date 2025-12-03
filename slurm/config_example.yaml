@@ -1,0 +1,12 @@
+# Configuration for CHG on Slurm clusters
+# Copy this file to config.yaml and update paths for your cluster
+
+directories:
+  # Repository root
+  repo: .
+
+  # HuggingFace cache - update to your cluster's scratch/cache location
+  huggingface: ~/.cache/huggingface
+
+  # Output directory for datasets and trained masks
+  save: ../notebooks/output

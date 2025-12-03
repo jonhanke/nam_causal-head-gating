@@ -95,3 +95,10 @@ Thumbs.db
 saved_masks/
 /datasets/
 huggingface_cache/
+
+# Slurm cluster-specific files (contain account/partition info)
+slurm/job.slurm
+slurm/config.yaml
+slurm/*_princeton.*
+slurm/*.out
+slurm/*.err

@@ -96,6 +96,7 @@ include = [
     "/src",
     "/tests",
     "/notebooks",
+    "/slurm",
     "/README.md",
     "/LICENSE",
     "/Makefile",
